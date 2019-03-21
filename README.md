@@ -3,7 +3,7 @@
 
 
 ### 集合
-+ [集合介绍](https://github.com/suifeng412/JCKTree/docs/collect/base.md)
++ [集合介绍](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/base.md)
 
 
 
