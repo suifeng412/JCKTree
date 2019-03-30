@@ -4,8 +4,7 @@ LinkedList是一种可以在任何位置进行高效地插入和删除操作的�
 
 
 ### 结构图
-【TODO 待完善 随风 2019-03-29~30】
-
+![LinkedList 结构体](https://suifeng-blog.oss-cn-shenzhen.aliyuncs.com/java-collection/LinkedList%E7%BB%93%E6%9E%84%E5%9B%BE.jpg)
 
 
 
@@ -119,9 +118,5 @@ LinkedList是一种可以在任何位置进行高效地插入和删除操作的�
 #### 缺点
 + 由于查询需要进行遍历，因此效率低
 
-
-
-【TODO 待完善 随风 2019-03-29~30】
-
-
-
+### 知识脑图
+![ArrayList](https://suifeng-blog.oss-cn-shenzhen.aliyuncs.com/java-collection/linkedList%E8%84%91%E5%9B%BE.jpg)
