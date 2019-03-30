@@ -45,7 +45,7 @@ LinkedList是一种可以在任何位置进行高效地插入和删除操作的�
         else
             l.next = newNode;                               // 否则，更新l的next引用
         size++;                                             // size+1
-        modCount++;
+        modCount++;                                         // 非查询操作 modCount 都会 +1
     }
 ```
 
@@ -70,7 +70,7 @@ LinkedList是一种可以在任何位置进行高效地插入和删除操作的�
     }
     
     
-    
+    // 检查 index 是否超出范围 超出则抛出 IndexOutOfBoundsException
     private void checkPositionIndex(int index) {
         if (!isPositionIndex(index))
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
@@ -88,7 +88,7 @@ LinkedList是一种可以在任何位置进行高效地插入和删除操作的�
     
     /**
      * 根据 index 查找 node
-     * 该方法利用了双向链表的特性，index 距离哪个链表头近就从那边开始开始遍历
+     * 该方法利用了双向链表的特性，index 距离哪个链表头近就从哪边开始开始遍历
      * 时间复杂度为 O(n/2)；
      * 当 index 接近 size 的中间值时，效率最低
      * Returns the (non-null) Node at the specified element index.
