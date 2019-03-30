@@ -1,6 +1,6 @@
 ## LinkedList
-LinkedList是一种可以在任何位置进行高效地插入和删除操作的有序序列  
-它的最基本存储结构是一个节点：每个节点将存储对象，以及前后节点的引用
+&emsp; &emsp;LinkedList是一种可以在任何位置进行高效地插入和删除操作的有序序列。  
+&emsp; &emsp;它的最基本存储结构是一个节点：每个节点将存储对象，以及前后节点的引用。
 
 
 ### 结构图
@@ -8,8 +8,8 @@ LinkedList是一种可以在任何位置进行高效地插入和删除操作的�
 
 
 
-从上面的结构图中，我们可以了解到 ListedList 底层是基于双向链表实现的。
-围起来的可以看成 LinkedList 类，它定义了三个 transient 成员变量：first、last、size。这三个变量是整个 LinkedList 类的关键点。
+&emsp; &emsp;从上面的结构图中，我们可以了解到 ListedList 底层是基于双向链表实现的。  
+&emsp; &emsp;围起来的可以看成 LinkedList 类，它定义了三个 transient 成员变量：first、last、size。这三个变量是整个 LinkedList 类的关键点。
 1. 由于是双向链表（每个node都有保存前后节点的引用），因此我们不管是由 first 还是 last 节点开始迭代，都可以将整个链表的数据找出来；
 2. 在查询、随机插入以及set等操作都有涉及 size 判断；
 3. 由于 LinkedList 是双向链表，类中只存储了首尾两个节点，因此查询第n个元素都要从头遍历进行查找。
@@ -119,4 +119,4 @@ LinkedList是一种可以在任何位置进行高效地插入和删除操作的�
 + 由于查询需要进行遍历，因此效率低
 
 ### 知识脑图
-![ArrayList](https://suifeng-blog.oss-cn-shenzhen.aliyuncs.com/java-collection/linkedList%E8%84%91%E5%9B%BE.jpg)
+![LinkedList 脑图](https://suifeng-blog.oss-cn-shenzhen.aliyuncs.com/java-collection/linkedList%E8%84%91%E5%9B%BE.jpg)
