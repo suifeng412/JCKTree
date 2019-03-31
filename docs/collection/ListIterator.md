@@ -12,7 +12,21 @@
 &emsp;&emsp;IteratorListIterator 接口则在继承 Iterator 接口的基础上定义了：add(E newElement)、set(E newElement)、hasPrevious()、previous()、nextIndex()、previousIndex() 等方法，使得 ListIterator 迭代能力增强，能够进行双向迭代、迭代过程中可以进行增删改操作。
 
 
-### 外部现象
+### 现象与问题
+1. add() 方法在迭代器位置前面添加一个新元素
+2. next() 与 previous() 返回越过的对象
+3. set() 方法替换的是 next() 和 previous() 方法返回的上一个元素
+4. next() 后，再 remove() 则删除前面的元素；previous() 则会删除后面的元素
+
+**很多书本都有给出的结论：**
++ 链表有 n 个元素，则有 n+1 个位置可以添加新元素
++ add() 方法只依赖迭代器的+位置；remove() 和 set() 方法依赖于迭代器的状态（此时迭代的方向）
+
+
+**迭代时进行修改的问题：**
+一个迭代器指向另一个迭代器刚刚删除的元素，则现在这个迭代器就变成无效的了（元素被删除被回收；即使没被删除，仍存在引用指向，那么将会导致元素混乱的状态）。
+链表迭代器有能够检测到这种修改的功能，当发现集合被修改了，将会抛出一个 ConcurrentModificationException 异常
+
 TODO 待完善 随风 2019-03-30~31
 
 
