@@ -68,4 +68,177 @@
 
 
 ### 源码分析
-TODO 待完善 随风 2019-03-30~31
+&emsp;&emsp;有多个集合类根据自己的特点实现了 ListIterator 接口，其实现都大同小异，这里我们主要分析 LinkedList 中所实现的 ListIterator。  
+
+&emsp;&emsp;首先我们来分析 LinkedList 的 listIterator() 和 listIterator(int index) 方法获取 ListIterator 迭代器过程。  
+
+```java
+// AbstractList.java
+// listIterator() 方法 LinkedList 类本身并没有重写，需要追溯到 AbstractList 抽象类
+
+    // 获取 ListIterator 迭代器
+    public ListIterator<E> listIterator() {
+        return listIterator(0);
+    }
+
+    public ListIterator<E> listIterator(final int index) {
+        rangeCheckForAdd(index);    // 检查 index 范围是否超出
+
+        return new ListItr(index);  // 该抽象类也有实现 ListItr 类
+    }
+
+    private void rangeCheckForAdd(int index) {
+        if (index < 0 || index > size())
+            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+    }
+```
+
+```java
+// LinkedList.java
+// LinkedList 类重写了 listIterator(int index) 方法
+
+    public ListIterator<E> listIterator(int index) {
+        checkPositionIndex(index);  // 同理 检查 index 范围；相关代码就不贴了
+        return new ListItr(index);
+    }
+
+
+    private class ListItr implements ListIterator<E> {
+        private Node<E> lastReturned;   // 最后返回的节点
+        private Node<E> next;   // 下一个需要处理的节点
+        private int nextIndex;  // 下一个需要处理的节点 index
+        // modCount 表示集合和迭代器修改的次数；expectedModCount 表示当前迭代器对集合修改的次数
+        private int expectedModCount = modCount;
+
+        ListItr(int index) {
+            // assert isPositionIndex(index);
+            next = (index == size) ? null : node(index);
+            nextIndex = index;
+        }
+
+        public boolean hasNext() {
+            return nextIndex < size;
+        }
+
+        /**
+        * 处理对象：迭代器当前的 next 节点
+        * 将处理目标储到 lastReturned 变量中
+        * 然后将当前的 next.next 节点保存起来，用于下一次迭代处理
+        * nextIndex 同时 +1
+        * 返回 lastReturned.item 元素
+        * 执行后：lastReturned 指向前一个节点；next、nextIndex 指向后一个节点
+        */
+        public E next() {
+            // 检查 modCount 与 expectedModCount 是否相等
+            // 实际检查该链表是否被其他迭代器或者集合本身修改
+            checkForComodification();
+            // 判断是否存在 next 节点
+            if (!hasNext())
+                throw new NoSuchElementException();
+            
+            lastReturned = next;    // 将这次返回的 node 节点更新到迭代器中的 lastReturned 变量
+            next = next.next;   // 将下一次需要处理 node 节点更新会 next 变量
+            nextIndex++;    // 变量 nextIndex +1
+            return lastReturned.item;   // 返回元素
+        }
+
+        public boolean hasPrevious() {
+            return nextIndex > 0;
+        }
+
+        /**
+        * 处理对象：迭代器当前的 next.prev 节点
+        * 将处理目标储到 lastReturned 变量中
+        * 然后将当前的 next.prev 节点保存起来，用于下一次迭代处理
+        * nextIndex 同时 -1
+        * 返回当前的 next.item 元素
+        * 执行后：next、lastReturned、nextIndex 指向同一个节点
+        */
+        public E previous() {
+            checkForComodification();
+            // 判断是否存在 prev 节点
+            if (!hasPrevious())
+                throw new NoSuchElementException();
+
+            // 处理当前 next 的 prev 节点
+            // 特殊情况：next = null 时，则它的 prev 节点为 last 节点  
+            lastReturned = next = (next == null) ? last : next.prev;    
+            nextIndex--;    // nextIndex -1
+            return lastReturned.item;
+        }
+
+        public int nextIndex() {
+            return nextIndex;
+        }
+
+        public int previousIndex() {
+            return nextIndex - 1;
+        }
+
+        /**
+        * 处理对象：lastReturned
+        * 删除 lastReturned 指向的节点，并置为 null
+        * 同时保证 next 和 nextIndex 指向同一个节点
+        */
+        public void remove() {
+            checkForComodification();   // 同理， 检查 modCount 与 expectedModCount 是否相等
+            if (lastReturned == null)
+                throw new IllegalStateException();
+
+            Node<E> lastNext = lastReturned.next;  // 暂存 lastReturned 的 next 节点，用于恢复迭代状态
+            unlink(lastReturned);   // 删除最后返回的节点    modCount++;
+            
+            // 分迭代方向处理（因为删除一个节点后，需要恢复迭代状态：next 和 nextIndex 指向同一个节点）
+            if (next == lastReturned)   // next 与 lastReturned 节点相同则表明最近一次迭代操作是 previous()
+                next = lastNext;        // 删除了原有 next 指向的节点，因此 nextIndex 相对指向的节点变为 next.next，需要更新 next 变量的指向
+            else
+                nextIndex--;    // next() 迭代方向；删除了next前面的节点，因此next的相对位置发生变化，需要 nextIndex -1
+            lastReturned = null;    
+            expectedModCount++;     // 同时 expectedModCount++
+        }
+
+        public void set(E e) {
+            if (lastReturned == null)
+                throw new IllegalStateException();
+            checkForComodification();
+            lastReturned.item = e;
+        }
+
+        public void add(E e) {
+            checkForComodification();
+            lastReturned = null;
+            if (next == null)
+                linkLast(e);
+            else
+                linkBefore(e, next);
+            nextIndex++;
+            expectedModCount++;
+        }
+
+        public void forEachRemaining(Consumer<? super E> action) {
+            Objects.requireNonNull(action);
+            while (modCount == expectedModCount && nextIndex < size) {
+                action.accept(next.item);
+                lastReturned = next;
+                next = next.next;
+                nextIndex++;
+            }
+            checkForComodification();
+        }
+
+        /**
+        * 检查 modCount 与 expectedModCount 是否相等，否则抛出错误
+        * ListIterator 迭代器进行增删操作时，都会同时对这两个变量 +1
+        * 目的：
+        * 使用 ListIterator 迭代器期间，LinkedList 对象有且只能当前这一个迭代器可以进行修改
+        * 避免 LinkedList 对象本身以及其他迭代器进行修改导致链表混乱
+        */
+        final void checkForComodification() {
+            if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+        }
+    }
+
+```
+
+TODO 待完善 随风 2019-04-02~03
