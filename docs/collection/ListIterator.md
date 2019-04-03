@@ -1,7 +1,7 @@
 # ListIterator 源码分析
 
 ### Iterator 对比
-&emsp;&emsp;Iterator（迭代器）是一种涉及模式，是一个对象，用于遍历集合中的所有元素。  
+&emsp;&emsp;Iterator（迭代器）是一种设计模式，是一个对象，用于遍历集合中的所有元素。  
 &emsp;&emsp;Iterator 包含四个方法，分别是：next()、hasNext()、remove()、forEachRemaining(Consumer<? super E> action)   
 
 &emsp;&emsp;Collection 接口继承 java.lang.Iterable，因此所有 Collection 实现类都拥有 Iterator 迭代能力。  
@@ -54,13 +54,13 @@
 ```
 
 
-**很多书本都有给出的结论：**
+**很多书本都有给出这样子的结论：**
 + 链表有 n 个元素，则有 n+1 个位置可以添加新元素；
 + add() 方法只依赖迭代器的+位置；remove() 和 set() 方法依赖于迭代器的状态（此时迭代的方向）；
 + 连续两个 remove() 会出错，remove() 前应先执行 next() 或 previous()。
 
 
-**迭代时进行修改的问题：**  
+**迭代同时修改问题：**  
 &emsp;&emsp;一个迭代器指向另一个迭代器刚刚删除的元素，则现在这个迭代器就变成无效的了（节点删除被回收；即使没被回收，该节点的前后引用也被重置为null）。
 链表迭代器有能够检测到这种修改的功能，当发现集合被修改了，将会抛出一个 ConcurrentModificationException 异常
 
@@ -104,9 +104,9 @@
 
 
     private class ListItr implements ListIterator<E> {
-        private Node<E> lastReturned;   // 最后返回的节点
-        private Node<E> next;   // 下一个需要处理的节点
-        private int nextIndex;  // 下一个需要处理的节点 index
+        private Node<E> lastReturned;   // 上一次处理的节点
+        private Node<E> next;   // 即将要处理的节点
+        private int nextIndex;  // 即将要处理的节点的 index
         // modCount 表示集合和迭代器修改的次数；expectedModCount 表示当前迭代器对集合修改的次数
         private int expectedModCount = modCount;
 
@@ -126,7 +126,7 @@
         * 然后将当前的 next.next 节点保存起来，用于下一次迭代处理
         * nextIndex 同时 +1
         * 返回 lastReturned.item 元素
-        * 执行后：lastReturned 指向前一个节点；next、nextIndex 指向后一个节点
+        * 执行后：lastReturned 指向该次处理的节点；next、nextIndex 指向该次处理节点的后一个节点
         */
         public E next() {
             // 检查 modCount 与 expectedModCount 是否相等
@@ -152,7 +152,7 @@
         * 然后将当前的 next.prev 节点保存起来，用于下一次迭代处理
         * nextIndex 同时 -1
         * 返回当前的 next.item 元素
-        * 执行后：next、lastReturned、nextIndex 指向同一个节点
+        * 执行后：next、lastReturned、nextIndex 指向该次处理节点的前一个节点
         */
         public E previous() {
             checkForComodification();
