@@ -66,7 +66,6 @@
 
 &emsp;&emsp;为什么出现上面的这些现象与问题呢，我们还是从源码中寻找答案吧
 
-
 ### 源码分析
 &emsp;&emsp;有多个集合类根据自己的特点实现了 ListIterator 接口，其实现都大同小异，这里我们主要分析 LinkedList 中所实现的 ListIterator。  
 
@@ -197,6 +196,9 @@
             expectedModCount++;     // 同时 expectedModCount++
         }
 
+        /**
+        * 处理对象：lastReturned
+        */
         public void set(E e) {
             if (lastReturned == null)
                 throw new IllegalStateException();
@@ -204,6 +206,9 @@
             lastReturned.item = e;
         }
 
+        /**
+        * 分位置进行添加
+        */
         public void add(E e) {
             checkForComodification();
             lastReturned = null;
@@ -241,4 +246,14 @@
 
 ```
 
-TODO 待完善 随风 2019-04-02~03
+### 小结
+>&emsp;&emsp;总的来说 ListIterator 是记录 List 位置的一个对象，它主要的成员变量是 lastReturned、next、nextIndex 以及 expectedModCount。
+>1. next() 处理的是 next 节点，返回 next.item
+>2. previous() 处理的是 next.prev 节点 返回 next.prev.item
+>3. remove() 处理的是 lastReturned 节点，并置为null，但要注意的是，删除节点后的 next 与 nextIndex 需分情况处理。
+>4. set() 处理的是 lastReturned 节点，lastReturned.item = e
+>5. add() 添加，并将 lastReturned 置为null
+>
+>&emsp;&emsp;这就很好地解释上面所提到的一些现象与问题了。  
+>&emsp;&emsp;典型的就是连续两个 remove() 会报错，那是因为第一个 reomve() 之后 lastReturned 被置为null；第二个 remove() 处理的对象是null，因此炮锤 IllegalStateException
+
