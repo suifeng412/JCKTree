@@ -257,3 +257,6 @@
 >&emsp;&emsp;这就很好地解释上面所提到的一些现象与问题了。  
 >&emsp;&emsp;典型的就是连续两个 remove() 会报错，那是因为第一个 reomve() 之后 lastReturned 被置为null；第二个 remove() 处理的对象是null，因此炮锤 IllegalStateException
 
+
+### 知识脑图
+![ListIterator](https://suifeng-blog.oss-cn-shenzhen.aliyuncs.com/java-collection/ListIterator%E8%84%91%E5%9B%BE.png)
