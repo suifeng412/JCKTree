@@ -146,6 +146,12 @@ tableSizeFor 计算扩容阀值
 
 ```
 
+hash(key) 方法分析
+```java
+
+
+```
+
 
 put() 方法分析
 ```java
@@ -157,9 +163,12 @@ put() 方法分析
 
     final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
                    boolean evict) {
-        Node<K,V>[] tab; Node<K,V> p; int n, i;
+        Node<K,V>[] tab; 
+        Node<K,V> p; 
+        int n, i;   // n 用于记录 table 的长度
+        // 判断table是否为空，为空则进行初始化（table不是通过构造函数进行初始化，而是通过扩容进行初始化）
         if ((tab = table) == null || (n = tab.length) == 0)
-            n = (tab = resize()).length;
+            n = (tab = resize()).length;    // resize() 扩容函数
         if ((p = tab[i = (n - 1) & hash]) == null)
             tab[i] = newNode(hash, key, value, null);
         else {
@@ -198,7 +207,7 @@ put() 方法分析
         return null;
     }
 
-
+// TODO 源码分析先放一段时间  完成时间：2019.06 前 随风  
 ```
 
 
