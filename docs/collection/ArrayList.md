@@ -135,7 +135,7 @@
 
 
 ### 知识脑图
-![ArrayList](https://suifeng-blog.oss-cn-shenzhen.aliyuncs.com/java-collection/ArrayList.png)
+![ArrayList](https://github.com/suifeng412/JCKTree/blob/master/ximd/collection/02-ArrayList.png)
 
 
 
