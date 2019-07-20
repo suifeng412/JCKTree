@@ -4,7 +4,7 @@
 
 
 ### 结构图
-![LinkedList 结构体](https://github.com/suifeng412/JCKTree/blob/master/ximd/collection/03-LinkedList%E7%BB%93%E6%9E%84%E5%9B%BE.jpg)
+![LinkedList 结构体](https://github.com/suifeng412/JCKTree/blob/master/xmind/collection/03-LinkedList%E7%BB%93%E6%9E%84%E5%9B%BE.jpg)
 
 
 
@@ -119,4 +119,4 @@
 + 由于查询需要进行遍历，因此效率低
 
 ### 知识脑图
-![LinkedList 脑图](https://github.com/suifeng412/JCKTree/blob/master/ximd/collection/03-LinkedList.jpg)
+![LinkedList 脑图](https://github.com/suifeng412/JCKTree/blob/master/xmind/collection/03-LinkedList.jpg)

@@ -259,4 +259,4 @@
 
 
 ### 知识脑图
-![ListIterator](https://github.com/suifeng412/JCKTree/blob/master/ximd/collection/04-ListIterator.png)
+![ListIterator](https://github.com/suifeng412/JCKTree/blob/master/xmind/collection/04-ListIterator.png)

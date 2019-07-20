@@ -135,7 +135,7 @@
 
 
 ### 知识脑图
-![ArrayList](https://github.com/suifeng412/JCKTree/blob/master/ximd/collection/02-ArrayList.png)
+![ArrayList](https://github.com/suifeng412/JCKTree/blob/master/xmind/collection/02-ArrayList.png)
 
 
 

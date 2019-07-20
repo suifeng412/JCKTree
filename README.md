@@ -16,9 +16,9 @@
 
 
 ### 框架
-+ [01. MyBatis](https://github.com/suifeng412/JCKTree/blob/master/ximd/frame/01-mybatis.png)
-+ [02. Spring](https://github.com/suifeng412/JCKTree/blob/master/ximd/frame/02-Spring.png)
-+ [03. SpringMVC](https://github.com/suifeng412/JCKTree/blob/master/ximd/frame/03-SpringMVC.png)
++ [01. MyBatis](https://github.com/suifeng412/JCKTree/blob/master/xmind/frame/01-mybatis.png)
++ [02. Spring](https://github.com/suifeng412/JCKTree/blob/master/xmind/frame/02-Spring.png)
++ [03. SpringMVC](https://github.com/suifeng412/JCKTree/blob/master/xmind/frame/03-SpringMVC.png)
 
 
 
