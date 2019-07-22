@@ -5,6 +5,7 @@
 + [01. 类型、变量、运算符、String、Math、输入输出、Array](https://github.com/suifeng412/JCKTree/blob/master/xmind/base/01-基础知识（类型、变量、运算符、String、Math、输入输出、Array）.png)
 + [02. 类、文档注释、多态、Object、包装器、自动装箱拆箱、参数数量可变、反射](https://github.com/suifeng412/JCKTree/blob/master/xmind/base/02-类、文档注释、多态、Object、装箱拆箱、参数数量可变、反射.png)
 + [03. 接口、对象克隆、Lambda、内部类、代理（静态代理、动态代理、cglib代理）](https://github.com/suifeng412/JCKTree/blob/master/xmind/base/03-接口、对象克隆、Lambda、内部类、代理.png)
++ [04. 异常、断言、日志、泛型](https://github.com/suifeng412/JCKTree/blob/master/xmind/base/04-异常、断言、日志、泛型.png)
 
 
 
