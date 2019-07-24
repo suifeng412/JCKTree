@@ -12,8 +12,8 @@
 ### 集合
 + [01-集合基础知识](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/01-base.md)
 + [02-ArrayList 基础用法](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/02-ArrayListBase.md)
++ [03-ArrayList 源码分析](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/03-ArrayListSourceCode.md)
 
-+ [ArrayList](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/ArrayList.md)
 + [LinkedList](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/LinkedList.md)
 + [ListIterator 源码分析](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/ListIterator.md)
 + [HashMap](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/HashMap.md)
