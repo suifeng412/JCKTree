@@ -1,7 +1,7 @@
 # 集合介绍
 
 
-![ArrayList 基础用法](https://github.com/suifeng412/JCKTree/blob/master/xmind/collection/02-ArrayList 基础用法.png)
+![ArrayList 基础用法](https://github.com/suifeng412/JCKTree/blob/master/xmind/collection/02-ArrayList基础用法.png)
 
 ### demo coding
 ```java
