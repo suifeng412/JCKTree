@@ -14,8 +14,8 @@
 + [02-ArrayList 基础用法](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/02-ArrayListBase.md)
 + [03-ArrayList 源码分析](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/03-ArrayListSourceCode.md)
 + [04-LinkedList 基础用法](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/04-LinkedListBase.md)
++ [05-LinkedList 源码分析](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/05-LinkedListSourceCode.md)
 
-+ [LinkedList](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/LinkedList.md)
 + [ListIterator 源码分析](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/ListIterator.md)
 + [HashMap](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/HashMap.md)
 + [HashSet](https://github.com/suifeng412/JCKTree/blob/master/docs/collection/HashSet.md)
