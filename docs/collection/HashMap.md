@@ -1,4 +1,4 @@
-## HashMap
+# HashMap
 
 >一种存储键/值关联的数据结构  
 >HashMap 的 key 是不可以重复的，保证元素唯一的依据是对象的hashCode跟equals方法  
@@ -6,7 +6,7 @@
 >HashMap 继承于AbstractMap，实现了Map、Cloneable、java.io.Serializable接口  
 >HashMap 的实现是异步的，这意味着它是非线程安全的；它的key、value都可以为null  
 
-### 散列表
+## 散列表
 &emsp;&emsp;散列表（Hash table，也叫哈希表），是根据键（Key）而直接访问在内存存储位置的数据结构。  
 &emsp;&emsp;主要构造是数组（物理存储结构：顺序存储结构），因此对于指定下标的查找，时间复杂度为O(1)。  
 
@@ -21,34 +21,35 @@
 图片    
 
 
-**常见的Hash函数有以下几个：**   
+### 常见的Hash函数有以下几个：
 1. （加法）直接定址法：取关键字或关键字的某个线性函数值为散列地址。即 hash(k) = k 或者 hash(k) = a * k + b，其中 a b 为常数。（这种散列函数叫做自身函数）
-2. （取模）除留余数法：取关键字被某个不大于散列表表长m的数p除后所得的余数为散列地址。即  hash(k) = k mod p , p ≤ m 不仅可以对关键字直接取模。也可在折叠法、平方取中法等运算之后取模。对p的选择很重要，一般取素数或m，若p选择不好，容易产生冲突。
-3. （分布均匀：直接取较均匀的数字）数字分析法：假设关键字是以r为基的数，并且哈希表中可能出现的关键字都是事先知道的，则可取关键字的若干数位组成哈希地址。
-4. （分布不均匀：先求平方值在按需取）平方取中法：取关键字平方后的中间几位为哈希地址。通常在选定哈希函数时不一定能知道关键字的全部情况，取其中的哪几位也不一定合适，而一个数平方后的中间几位数和数的每一位都相关，由此使随机分布的关键字得到的哈希地址也是随机的。取的位数由表长决定。
+2. （取模）除留余数法：用关键字 k 除以某个不大于哈希表长度 m 的数 p，所得余数为散列地址。即  hash(k) = k mod p , p ≤ m 不仅可以对关键字直接取模。也可在折叠法、平方取中法等运算之后取模。对p的选择很重要，一般取素数或m，若p选择不好，容易产生冲突。
+3. （分布均匀：直接取较均匀的数字）数字分析法：提取关键字中取值比较均匀的数字作为哈希地址。
+4. （分布不均匀：先求平方值在按需取）平方取中法：如果关键字各个部分分布都不均匀的话，可以先求出它的平方值，然后按照需求取中间的几位作为哈希地址。
 5. （分成位数相同几段，几部分相加，舍去最高位）折叠法：将关键字分割成位数相同的几部分（最后一部分的位数可以不同），然后取这几部分的叠加和（舍去进位）作为哈希地址。
 6. （随机）随机数法：采用一个伪随机数当作哈希函数。
 
 
-**哈希冲突**  
+### 哈希冲突  
 &emsp;&emsp;当两个不同的 key 通过散列函数 f(x) 得到的散列值（实际的存储地址）相同，在进行插入的时候，发现该地址已经被其他元素占用，这将会造成哈希冲突，也叫哈希碰撞。
    
 **常见的哈希冲突的解决方案有以下几个：**   
-1. 开放定址法（open addressing）：一旦发生了冲突，就去寻找下一个空的散列地址，只要散列表足够大，空的散列地址总能找到，并将记录存入
-2. 链地址法：将哈希表的每个单元作为链表的头结点，所有哈希地址为i的元素构成一个同义词链表。即发生冲突时就把该关键字链在以该单元为头结点的链表的尾部。
-3. 再哈希法：当哈希地址发生冲突用其他的函数计算另一个哈希函数地址，直到冲突不再产生为止。
-4. 建立公共溢出区：将哈希表分为基本表和溢出表两部分，发生冲突的元素都放入溢出表中。
+1. 开放定址法（open addressing）：当发生哈希冲突时，寻找一下个空闲位置进行存放，存在查找性能差、扩容频繁等缺点
+2. 再哈希法：当哈希地址发生冲突用其他的函数计算另一个哈希函数地址，直到冲突不再产生为止，缺点就是增加了计算的时间
+3. 建立公共溢出区：将哈希表分为基本表和溢出表两部分，发生冲突的元素都放入溢出表中。
+4. 链地址法：采用数组+链表数据结构，当发生哈希冲突时，使用一个链表来存储相同的 Hash 值数据，查找一个元素时间复杂度为 O(1+n)。
+
 
 
 **而 HashMap 则采用了链地址法来解决哈希冲突的问题，在JDK 1.8中引入了红黑树，在链表的长度大于等于8并且 hash 桶的长度大于等于64的时候，会将链表进行树化**
 
 
 
-### 源码分析
+## 源码分析
 
-类常量分析  
+### 类常量分析  
 ```java
-    // 默认hash桶初始长度16
+    // 默认hash桶初始长度16 即 Node<K,V>[] 的数量
     static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; // aka 16  
 
     // hash表最大容量2的30次幂
@@ -68,9 +69,9 @@
 
 ```
 
-实例变量分析
+### 实例变量分析
 ```java
-    // hash 桶
+    // hash 桶（Node数组）
     transient Node<K,V>[] table;
 
     // 保留缓存的 entryset
@@ -82,8 +83,8 @@
     // HashMap结构修改的次数
     transient int modCount;
 
-    // 扩容的阀值，当键值对的数量超过这个阀值会产生扩容
-    // 当table == {}时，该值为初始容量（初始容量默认为16）
+    // 扩容的阀值，当键值对的数量超过这个阀值会进行扩容 resize()
+    // 计算公式为：capacity * load factor（桶数 * 负载因子）
     int threshold;
 
     // 负载因子,代表了table的填充度有多少,默认是0.75
@@ -91,11 +92,71 @@
 
 ```
 
-构造函数分析
-> HashMap有4个构造器，其他构造器如果用户没有传入initialCapacity 和loadFactor这两个参数，会使用默认值  
-> 若没有传入 initialCapacity 和loadFactor这两个参数 则分别默认为 16、0.75  
+### 内部类 Node 分析
 ```java
-    // 从下面的构造函数中发现，hash桶没有在构造函数中初始化，而它是在第一次存储键值对的时候才进行初始化
+    // 桶中元素类型
+    static class Node<K,V> implements Map.Entry<K,V> {
+        final int hash;
+        final K key;
+        V value;
+        // next 指针；当发生哈希碰撞时新 Node 元素的引用将存储在 next 指针，形成一个链表
+        Node<K,V> next;
+
+        Node(int hash, K key, V value, Node<K,V> next) {
+            this.hash = hash;
+            this.key = key;
+            this.value = value;
+            this.next = next;
+        }
+
+        public final K getKey()        { return key; }
+        public final V getValue()      { return value; }
+        public final String toString() { return key + "=" + value; }
+
+        public final int hashCode() {
+            return Objects.hashCode(key) ^ Objects.hashCode(value);
+        }
+
+        public final V setValue(V newValue) {
+            V oldValue = value;
+            value = newValue;
+            return oldValue;
+        }
+
+        public final boolean equals(Object o) {
+            if (o == this)
+                return true;
+            if (o instanceof Map.Entry) {
+                Map.Entry<?,?> e = (Map.Entry<?,?>)o;
+                if (Objects.equals(key, e.getKey()) &&
+                    Objects.equals(value, e.getValue()))
+                    return true;
+            }
+            return false;
+        }
+    }
+```
+
+### 构造函数分析
+> HashMap有4个构造器，若用户没有传入initialCapacity 和loadFactor这两个参数，将分别使用 16、0.75 默认参数
+```java
+    // 无参构造方法
+    public HashMap() {
+        this.loadFactor = DEFAULT_LOAD_FACTOR;
+    }
+
+    // 带初始元素的构造方法，执行 putMapEntries 方法进行添加
+    public HashMap(Map<? extends K, ? extends V> m) {
+        this.loadFactor = DEFAULT_LOAD_FACTOR;
+        putMapEntries(m, false);
+    }
+    
+    // 带初始容量构造方法 =》增加默认参数，调用另一个构造方法
+    public HashMap(int initialCapacity) {
+        this(initialCapacity, DEFAULT_LOAD_FACTOR);
+    } 
+
+    // 带初始容量（桶数）、负载因子的构造方法
     public HashMap(int initialCapacity, float loadFactor) {
         // 校验初始容量不能小于 0
         if (initialCapacity < 0)
@@ -110,28 +171,17 @@
                                                loadFactor);
         // 负载因子赋值
         this.loadFactor = loadFactor;
-        // 根据 initialCapacity 计算扩容阀值
+        
+        // tableSizeFor 方法的作用就是返回大于或等于 初始容量 的最小2次幂 =》 即不管传入的 initialCapacity 为何值，最终的 table 长度都是2的幂次方（原因下文解答）
+        // 为什么会将 初始容量 存放在扩容阈值中呢？
+        // 因为 HashMap 没有定义容量的属性，只能暂时寄存在 threshold 中，直到第一次进行键值对存储容量扩展时，才会对 table、threshold 初始化
         this.threshold = tableSizeFor(initialCapacity);
     }
-
-    public HashMap(int initialCapacity) {
-        this(initialCapacity, DEFAULT_LOAD_FACTOR);
-    }
-
-
-    public HashMap() {
-        this.loadFactor = DEFAULT_LOAD_FACTOR; // all other fields defaulted
-    }
-
-    public HashMap(Map<? extends K, ? extends V> m) {
-        this.loadFactor = DEFAULT_LOAD_FACTOR;
-        putMapEntries(m, false);
-    }
-
-
 ```
-tableSizeFor 计算扩容阀值
-> 这个方法的作用就是大于或等于 cap 的最小2的幂
+
+
+### tableSizeFor
+> 这个方法的作用就是大于或等于 cap 的最小2次幂
 > 例如：cap 为6 ，该方法的计算的计算结果为8
 ```java
     static final int tableSizeFor(int cap) {
@@ -146,11 +196,41 @@ tableSizeFor 计算扩容阀值
 
 ```
 
-hash(key) 方法分析
+
+### 获取数组下标源码分析（hash(key)源码分析、`(n - 1) & hash`分析）
+以 put(key, value) 路径进行分析  
+1. put(K key, V value)   
+2. hash(key)  
+3. putVal() =》i = (n - 1) & hash
+
+**put(K key, V value) 源码**
 ```java
-
-
+    public V put(K key, V value) {
+        return putVal(hash(key), key, value, false, true);
+    }
 ```
+
+**hash(Object key) 方法分析**
+```java
+    static final int hash(Object key) {
+        int h;
+        // 获取 key 的 hashCode，与 hashCode 无符号右移16位进行异或操作
+        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+    }
+    
+    // 最后在 putVal() 方法中使用 (n - 1) & hash 获取 key 的下标
+     
+```
++ 为什么要通过 hash(Object key) 方法再次处理 hashCode 值，而不是直接使用 hashCode？  
+&emsp;&emsp;在最后一步获取下标中`(n - 1）& hash`，n 的一般取值（数组容量）相对于 int 范围来说是很小的，当 n 取值为 65535（2的16次方） 的时候，hash 的高16位才会参与获取下标的计算。    
+&emsp;&emsp;在 `hash(Object key)` 方法中，将 key 的 hashCode，与 hashCode 无符号右移16位进行异或操作 =》 即将 hashCode 的高16位与低16位进行异或操作，高位16位不变，返回的 hash 再进行下标的'与'操作。    
+&emsp;&emsp;这样做的目的就是，充分混合高位低位的特征，减少哈希碰撞。
++ 为何不使用'取模'操作`i = hash % n`，而是通过'与'操作 `i = (n - 1) & hash`来获取下标呢？    
+&emsp;&emsp;这两者的操作是等价，由于计算机底层运算是基于二进制的，因此 `&` 比 `%` 效率更高
+
+**图解**
+123132313
+
 
 
 put() 方法分析
@@ -207,9 +287,28 @@ put() 方法分析
         return null;
     }
 
-// TODO 源码分析先放一段时间  完成时间：2019.06 前 随风  
+
 ```
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+哈希表中进行添加，删除，查找等操作，性能十分之高，不考虑哈希冲突的情况下，仅需一次定位即可完成，时间复杂度为O(1)
+
+由于数组是采用一段连续的存储单元来存储数据，对于指定下标的查找，时间复杂度为O(1)，
+
+
+
+参考资料：
+https://zh.wikipedia.org/wiki/%E5%93%88%E5%B8%8C%E8%A1%A8
+https://juejin.im/post/5ab99afff265da23a2291dee
