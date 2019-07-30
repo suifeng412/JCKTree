@@ -3,7 +3,7 @@
 
 ![HashMap 基本用法](https://github.com/suifeng412/JCKTree/blob/master/xmind/collection/07-HashMap基本用法.png)
 
-demo coding
+### demo coding
 ```java
 public class MyTest {
 
