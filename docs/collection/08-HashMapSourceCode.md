@@ -432,6 +432,9 @@
 
 
 
-参考资料：
+参考资料：  
 https://juejin.im/post/5ab99afff265da23a2291dee  
 https://zhuanlan.zhihu.com/p/34280652  
+
+## 思维导图
+![HashMap](https://github.com/suifeng412/JCKTree/blob/master/xmind/collection/08-HashMap源码分析.png)
