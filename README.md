@@ -27,7 +27,7 @@
 + [01. 线程与并发知识导图](https://github.com/suifeng412/JCKTree/blob/master/docs/thread/01-thread.md)
 
 ### Java 8 Stream
-+ [01. Stream 知识导图](https://github.com/suifeng412/JCKTree/blob/master/docs/stream/01-BaseStream.md)
++ [01. Stream 知识导图](https://github.com/suifeng412/JCKTree/blob/master/docs/stream/BaseStream.md)
 
 
 ### 框架
