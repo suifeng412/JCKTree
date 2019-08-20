@@ -28,7 +28,7 @@
 + [01. 线程与并发知识导图](https://github.com/suifeng412/JCKTree/blob/master/docs/thread/01-thread.md)
 
 ### Java 8 Stream
-+ [Stream 知识导图](https://github.com/suifeng412/JCKTree/blob/master/docs/stream/BaseStream.md)
++ [Stream 操作、Optional](https://github.com/suifeng412/JCKTree/blob/master/docs/stream/BaseStream.md)
 + [缓冲流、转换流、序列化流、打印流](https://github.com/suifeng412/JCKTree/blob/master/docs/stream/OtherStream.md)
 
 ### IO
